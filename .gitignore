@@ -1,0 +1,7 @@
+.vscode
+.mypy_cache
+docker-stack.yml
+.env
+venv
+node_modules
+cookiecutter-config-file.yml
