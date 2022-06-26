@@ -23,7 +23,12 @@
 import {Component, Vue} from 'vue-property-decorator';
 import NotificationsManager from '@/components/NotificationsManager.vue';
 import {readIsLoggedIn} from '@/store/main/getters';
-import {dispatchCheckLoggedIn, dispatchGetPortfolio, dispatchGetStocks} from '@/store/main/actions';
+import {
+  dispatchCheckLoggedIn,
+  dispatchGetMainStocks,
+  dispatchGetPortfolio,
+  dispatchGetStocks
+} from '@/store/main/actions';
 
 @Component({
   components: {
@@ -40,6 +45,7 @@ export default class App extends Vue {
     await dispatchCheckLoggedIn(this.$store);
     await dispatchGetPortfolio(this.$store);
     await dispatchGetStocks(this.$store);
+    await dispatchGetMainStocks(this.$store);
   }
 }
 </script>

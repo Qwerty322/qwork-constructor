@@ -20,7 +20,7 @@ client_sentry = Client(settings.SENTRY_DSN)
 
 
 @celery_app.task(acks_late=True)
-def test_celery(word: str) -> str:
+def test_celery(word: str = "default") -> str:
     return f"test task return {word}"
 
 
@@ -37,7 +37,7 @@ def notification_task():
 def invest_task():
     country = 'russia'
     stocks = investpy.stocks.get_stocks(country=country)["symbol"]
-    # stocks = ["FEES", "MAGN", "MSNG", "NMTP", "ROSN", "SBER", "BLNG"]
+    investpy.get_stocks_overview("russia", as_json=True)
     count_stocks = len(stocks)
     counter = 0
     index_for_buy = 1
@@ -55,10 +55,10 @@ def invest_task():
             time.sleep(3)
             counter = 0
         try:
-            # technical_indicators = investpy.technical.technical_indicators(stock, country, 'stock', interval='daily')
-            technical_indicators = investpy.technical.technical_indicators(stock, country, 'stock', interval='1hour')
-            # moving_averages = investpy.technical.moving_averages(stock, country, 'stock', interval='daily')
-            moving_averages = investpy.technical.moving_averages(stock, country, 'stock', interval='1hour')
+            technical_indicators = investpy.technical.technical_indicators(stock, country, 'stock', interval='daily')
+            # technical_indicators = investpy.technical.technical_indicators(stock, country, 'stock', interval='1hour')
+            moving_averages = investpy.technical.moving_averages(stock, country, 'stock', interval='daily')
+            # moving_averages = investpy.technical.moving_averages(stock, country, 'stock', interval='1hour')
 
             tech_sell = len(technical_indicators[technical_indicators['signal'] == 'sell'])
             tech_buy = len(technical_indicators[technical_indicators['signal'] == 'buy'])
@@ -76,8 +76,11 @@ def invest_task():
         ema_20 = moving_averages['ema_signal'][2]
         ema_100 = moving_averages['ema_signal'][4]
         if tech_buy > 8 and tech_sell < 3 and moving_sma_buy > 4 and moving_ema_buy > 4:
-            df = investpy.get_stock_historical_data(stock=stock, country=country, from_date=from_date,
-                                                    to_date=current_date)
+            try:
+                df = investpy.get_stock_historical_data(stock=stock, country=country, from_date=from_date,
+                                                        to_date=current_date)
+            except:
+                continue
             info = investpy.get_stock_company_profile(stock, country)
             info["ticker"] = stock
             info["country"] = country
@@ -100,8 +103,11 @@ def invest_task():
             counter += 1
 
         elif tech_sell > 8 and tech_buy < 2 and moving_sma_sell > 4 and moving_ema_sell > 4:
-            df = investpy.get_stock_historical_data(stock=stock, country=country, from_date=from_date,
-                                                    to_date=current_date)
+            try:
+                df = investpy.get_stock_historical_data(stock=stock, country=country, from_date=from_date,
+                                                        to_date=current_date)
+            except:
+                continue
             info = investpy.get_stock_company_profile(stock, country)
             info["ticker"] = stock
             info["country"] = country

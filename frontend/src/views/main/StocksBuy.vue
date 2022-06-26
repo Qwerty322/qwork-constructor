@@ -52,7 +52,7 @@ import {IPortfolio} from "@/interfaces";
 import {dispatchAddToPortfolio, dispatchGetPortfolio} from "@/store/main/actions";
 
 @Component
-export default class Dashboard extends Vue {
+export default class StocksBuy extends Vue {
   public qty: number = 0;
 
   get greetedUser() {

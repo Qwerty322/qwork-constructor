@@ -16,6 +16,19 @@ export interface Stock {
     id: number;
 }
 
+export interface mainStock {
+    symbol: string;
+    country: string;
+    name: string;
+    currency?: string;
+    change?: string;
+    change_percentage?: string;
+    last?: number;
+    high?: number;
+    low?: number;
+    turnover?: number;
+}
+
 export interface Portfolio {
     stock_id?: number;
     owner_id?: number;
@@ -33,6 +46,7 @@ export interface MainState {
     dashboardMiniDrawer: boolean;
     dashboardShowDrawer: boolean;
     stocks: Stock[];
+    mainStocks: mainStock[];
     portfolio: Portfolio[];
     notifications: AppNotification[];
 }

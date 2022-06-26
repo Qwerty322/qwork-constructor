@@ -13,6 +13,7 @@ export const getters = {
     dashboardMiniDrawer: (state: MainState) => state.dashboardMiniDrawer,
     userProfile: (state: MainState) => state.userProfile,
     stocksInPortfolio: (state: MainState) => state.portfolio,
+    stocks: (state: MainState) => state.mainStocks,
     stocksForBuy: (state: MainState) => state.stocks.filter((value) => value.side === 1),
     stocksForSell: (state: MainState) => state.stocks.filter((value) => value.side === 2),
     token: (state: MainState) => state.token,
@@ -29,6 +30,7 @@ export const readIsLoggedIn = read(getters.isLoggedIn);
 export const readLoginError = read(getters.loginError);
 export const readToken = read(getters.token);
 export const readStocksInPortfolio = read(getters.stocksInPortfolio);
+export const readStocks = read(getters.stocks);
 export const readStocksForBuy = read(getters.stocksForBuy);
 export const readStocksForSell = read(getters.stocksForSell);
 export const readUserProfile = read(getters.userProfile);

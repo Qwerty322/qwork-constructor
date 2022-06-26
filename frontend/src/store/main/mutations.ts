@@ -1,5 +1,5 @@
 import {IUserProfile} from '@/interfaces';
-import {MainState, AppNotification, Stock, Portfolio} from './state';
+import {MainState, AppNotification, Stock, Portfolio, mainStock} from './state';
 import {getStoreAccessors} from 'typesafe-vuex';
 import {State} from '../state';
 
@@ -22,6 +22,9 @@ export const mutations = {
     },
     setStocks(state: MainState, payload: Stock[]) {
         state.stocks = payload;
+    },
+    setMainStocks(state: MainState, payload: mainStock[]) {
+        state.mainStocks = payload;
     },
     setDashboardMiniDrawer(state: MainState, payload: boolean) {
         state.dashboardMiniDrawer = payload;
@@ -47,5 +50,6 @@ export const commitSetToken = commit(mutations.setToken);
 export const commitSetUserProfile = commit(mutations.setUserProfile);
 export const commitSetPortfolio = commit(mutations.setPortfolio);
 export const commitSetStocks = commit(mutations.setStocks);
+export const commitSetMainStocks = commit(mutations.setMainStocks);
 export const commitAddNotification = commit(mutations.addNotification);
 export const commitRemoveNotification = commit(mutations.removeNotification);

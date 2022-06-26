@@ -40,23 +40,11 @@ import {Component, Vue} from 'vue-property-decorator';
 import {readStocksForSell, readUserProfile} from '@/store/main/getters';
 
 @Component
-export default class Dashboard extends Vue {
-  get greetedUser() {
-    const userProfile = readUserProfile(this.$store);
-    if (userProfile) {
-      if (userProfile.full_name) {
-        return userProfile.full_name;
-      } else {
-        return userProfile.email;
-      }
-    }
-  }
-
+export default class StocksSell extends Vue {
 
   get stockForSell() {
     return readStocksForSell(this.$store);
   }
-
 
 }
 </script>

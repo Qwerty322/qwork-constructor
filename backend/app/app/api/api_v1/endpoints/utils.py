@@ -1,5 +1,6 @@
 from typing import Any, List
 
+import investpy
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic.networks import EmailStr
 
@@ -14,13 +15,24 @@ from app.utils import send_test_email
 router = APIRouter()
 
 
-@router.get("/test-invest/", response_model=List[Stock], status_code=200)
-def test_invest(
+@router.get("/all-stocks/", status_code=200)
+def read_stocks(
+        current_user: models.User = Depends(deps.get_current_active_user),
+) -> Any:
+    """
+    Read all stocks.
+    """
+    stock_json = investpy.get_stocks_overview("russia", as_json=True, n_results=250)
+    return stock_json
+
+
+@router.get("/stocks/", response_model=List[Stock], status_code=200)
+def get_recommend_stocks(
         db: Session = Depends(deps.get_db),
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Test invest results.
+    Get recommend stocks.
     """
     signal = crud.signal.get_last(db)
     if not signal:

@@ -34,7 +34,10 @@ export const api = {
         return axios.post(`${apiUrl}/api/v1/users/`, data, authHeaders(token));
     },
     async getStocks(token: string) {
-        return axios.get(`${apiUrl}/api/v1/utils/test-invest/`, authHeaders(token));
+        return axios.get(`${apiUrl}/api/v1/utils/stocks/`, authHeaders(token));
+    },
+    async getMainStocks(token: string) {
+        return axios.get(`${apiUrl}/api/v1/utils/all-stocks/`, authHeaders(token));
     },
     async getPortfolio(token: string) {
         return axios.get(`${apiUrl}/api/v1/items/`, authHeaders(token));

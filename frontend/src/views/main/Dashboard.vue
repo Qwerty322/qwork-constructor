@@ -36,7 +36,7 @@
                     </a>
                   </div>
                   <v-spacer></v-spacer>
-                  <b>Total: {{ item.current_price * item.qty }}₽</b>
+                  <b>Total: {{ (item.current_price * item.qty).toFixed(2) }}₽</b>
                   <span
                       :class="item.stock.price <= item.current_price ? 'green--text': 'red--text'"> ({{
                       ((item.current_price - item.stock.price) * item.qty).toFixed(2)

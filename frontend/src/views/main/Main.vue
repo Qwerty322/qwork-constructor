@@ -12,6 +12,14 @@
               <v-list-tile-title>Dashboard</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
+          <v-list-tile to="/main/all-stocks">
+            <v-list-tile-action>
+              <v-icon>inventory</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>All stocks</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
           <v-list-tile to="/main/stocks/buy">
             <v-list-tile-action>
               <v-icon>shopping_basket</v-icon>

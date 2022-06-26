@@ -9,7 +9,7 @@ import {
     commitAddNotification,
     commitRemoveNotification,
     commitSetLoggedIn,
-    commitSetLogInError, commitSetPortfolio, commitSetStocks,
+    commitSetLogInError, commitSetMainStocks, commitSetPortfolio, commitSetStocks,
     commitSetToken,
     commitSetUserProfile,
 } from './mutations';
@@ -54,6 +54,18 @@ export const actions = {
             if (response.data) {
                 console.log(response.data);
                 commitSetStocks(context, response.data);
+                // commitAddNotification(context, {content: 'Start invest process!', color: 'success'});
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionGetMainStocks(context: MainContext) {
+        try {
+            const response = await api.getMainStocks(context.state.token);
+            if (response.data) {
+                console.log(response.data);
+                commitSetMainStocks(context, response.data);
                 // commitAddNotification(context, {content: 'Start invest process!', color: 'success'});
             }
         } catch (error) {
@@ -218,6 +230,7 @@ export const dispatchUpdateUserProfile = dispatch(actions.actionUpdateUserProfil
 export const dispatchRemoveNotification = dispatch(actions.removeNotification);
 export const dispatchPasswordRecovery = dispatch(actions.passwordRecovery);
 export const dispatchResetPassword = dispatch(actions.resetPassword);
+export const dispatchGetMainStocks = dispatch(actions.actionGetMainStocks);
 export const dispatchGetStocks = dispatch(actions.actionGetStocks);
 export const dispatchGetPortfolio = dispatch(actions.actionGetPortfolio);
 export const dispatchAddToPortfolio = dispatch(actions.actionAddToPortfolio);

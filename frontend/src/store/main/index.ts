@@ -11,6 +11,7 @@ const defaultState: MainState = {
     dashboardMiniDrawer: false,
     dashboardShowDrawer: true,
     stocks: [],
+    mainStocks: [],
     portfolio: [],
     notifications: [],
 };
